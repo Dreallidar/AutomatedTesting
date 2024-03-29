@@ -19,10 +19,24 @@ public class TestClassAlex {
     public void SetupWebDriver(){
         _globalDriver = new ChromeDriver();
         _globalDriver.get("https://elenta.lt");//reikia https
-        WebElement cookieButton = _globalDriver.findElement(By.xpath("/html/body/div[5]/div[2]/div[1]/div[2]/div[2]/button[1]"));
-        cookieButton.click();
-        WebElement sutikimas = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/div[2]/div/a[3]"));
-        sutikimas.click();
+        try{
+            WebElement cookieButton = _globalDriver.findElement(By.xpath("/html/body/div[3]/div[2]/div[1]/div[2]/div[2]/button[1]/p"));
+            cookieButton.click();
+        }
+        catch (Exception e)
+        {
+
+        }
+        try{
+            WebElement sutikimas = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/div[2]/div/a[3]"));
+            sutikimas.click();
+        }
+        catch (Exception e)
+        {
+
+        }
+        WebElement login = _globalDriver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/a[3]"));
+        login.click();
         WebElement prisiregistruoti = _globalDriver.findElement(By.xpath("/html/body/div[1]/form/fieldset/table/tbody/tr[10]/td/p/a"));
         prisiregistruoti.click();
 
@@ -63,23 +77,31 @@ public class TestClassAlex {
     }
 
 
+
     @Test //leisti po viena
-    public void test3() {//jei atidaro teisingai pakūrėme projektą
+    public void test3() throws InterruptedException {//jei atidaro teisingai pakūrėme projektą
 
 
         _globalDriver.findElement(By.id("submit-new-ad-nav-button")).click();
         _globalDriver.findElement(By.xpath("/html/body/div[1]/ul/li[1]/a")).click();
+        _globalDriver.findElement(By.xpath("//html/body/div[1]/ul/li[1]/a")).click();
         _globalDriver.findElement(By.id("title")).sendKeys(generateUsername());// operacija nekuriant kintamojo.
         _globalDriver.findElement(By.id("text")).sendKeys(generateUsername());// operacija nekuriant kintamojo.
         // //*[@id="searchKeyword"]  paltginti dalinio xpath struktūrą su id. iš xpath matosi, kad elementas turi savo id.
         // papasakoti kad galima selectinti pagal id, unikalu, pagal klase, (jei vienas elementas ok, jei keli su ta klase paims pirmą. arba su findelements galima paimti visus su x klase, bet tai vėliau.)
         _globalDriver.findElement(By.id("price")).sendKeys("15");
         _globalDriver.findElement(By.id("location-search-box")).sendKeys("Vilnius");
-        _globalDriver.findElement(By.id("phone")).sendKeys("+3706123456");
+        _globalDriver.findElement(By.id("phone")).sendKeys("+37061234562");
         _globalDriver.findElement(By.id("email")).sendKeys(generateRandomEmail());
-        _globalDriver.findElement(By.xpath("//html/body/div[1]/ul/li[1]/a")).click();
-        _globalDriver.findElement(By.xpath("//html/body/div[1]/ul/li[1]/a")).click();
-//        _globalDriver.close();
+        _globalDriver.findElement(By.id("submit-button")).click();
+        Thread.sleep(2000);
+        _globalDriver.findElement(By.id("inputfile")).sendKeys("C:\\Users\\Dreanix\\Desktop\\Katukas.png");
+        Thread.sleep(2000);
+        _globalDriver.findElement(By.id("forward-button")).click();
+        _globalDriver.findElement(By.id("forward-button")).click();
+        Thread.sleep(2000);
+        _globalDriver.findElement(By.xpath("/html/body/div[1]/div[3]/form/table/tbody/tr[12]/td[2]/a")).click();
+        _globalDriver.close();
 
     }
 
